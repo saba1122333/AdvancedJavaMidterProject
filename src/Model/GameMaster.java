@@ -37,6 +37,19 @@ public class GameMaster {
             int fromRow = candidateLocation[0];
             int fromCol = candidateLocation[1];
 
+
+                if (move.disambiguationFile != null){
+                    if (move.fromCol !=fromCol){
+                        continue;
+                    }
+                }
+                if(move.disambiguationRank!=null){
+                    if(move.fromRow!=fromRow){
+                        continue;
+                    }
+
+            }
+
             // For captures
             if (move.isCapture) {
                 if (canCapture(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, false)) {
@@ -200,7 +213,6 @@ public class GameMaster {
         // All conditions met for a valid pawn capture
         return true;
     }
-
     public boolean canRookMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         // 1. Basic validation: can't stay in place and must move in a straight line
         int rowDiff = Math.abs(toRow - fromRow);
@@ -208,6 +220,11 @@ public class GameMaster {
 
         if (rowDiff == 0 && colDiff == 0) {
             return false;
+        }
+
+        // Ensure the move is EITHER horizontal OR vertical (not diagonal)
+        if (rowDiff != 0 && colDiff != 0) {
+            return false;  // Not a straight line move - rooks can't move diagonally
         }
 
         // 2. Check horizontal movement (same row)
@@ -222,9 +239,8 @@ public class GameMaster {
                 }
             }
         }
-
         // 3. Check vertical movement (same column)
-        else { // fromCol == toCol must be true here
+        if (fromCol == toCol) {
             int startRow = Math.min(fromRow, toRow) + 1;
             int endRow = Math.max(fromRow, toRow);
 
@@ -234,7 +250,9 @@ public class GameMaster {
                     return false; // Path is blocked
                 }
             }
+
         }
+
         // 4. Check destination square - can't land on your own piece
         if (chessBoard.board[toRow][toCol] != null &&
                 chessBoard.board[toRow][toCol].getColor().equals(color)) {
@@ -313,53 +331,97 @@ public class GameMaster {
     }
 
     public boolean canKingMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
-        // 1. Calculate movement distance in each direction
+        // PART 1: Basic movement validation
+        // King can only move one square in any direction
         int rowDiff = Math.abs(toRow - fromRow);
         int colDiff = Math.abs(toCol - fromCol);
 
-        // 2. Verify the king moves at most one square in any direction
-        if (rowDiff > 1 || colDiff > 1) {
-            return false;
+        if (rowDiff > 1 || colDiff > 1 || (rowDiff == 0 && colDiff == 0)) {
+            return false;  // Invalid movement pattern or not moving
         }
 
-        // 3. Ensure the king is actually moving
-        if (rowDiff == 0 && colDiff == 0) {
-            return false;
+        // PART 2: Check destination - can't move to square with friendly piece
+        ChessPiece destPiece = chessBoard.board[toRow][toCol];
+        if (destPiece != null && destPiece.getColor().equals(color)) {
+            return false;  // Can't capture own pieces
         }
 
-        // 4. Check destination square - can't land on your own piece
-        if (chessBoard.board[toRow][toCol] != null &&
-                chessBoard.board[toRow][toCol].getColor().equals(color)) {
-            return false;
-        }
+        // PART 3: Check if destination square is safe (not under attack)
+        return isSquareSafeForKing(color, toRow, toCol);
+    }
 
-        for (int i = 0; i < chessBoard.board.length; i++) {
-            for (int j = 0; j < chessBoard.board.length; j++) {
+    /**
+     * Determines if a square is safe for a king of the given color to move to.
+     * A square is safe if it's not controlled by any enemy piece.
+     */
+    private boolean isSquareSafeForKing(String color, int row, int col) {
+        String enemyColor = color.equals("white") ? "black" : "white";
 
-                if (chessBoard.board[i][j] != null && !chessBoard.board[i][j].getColor().equals(color)) {
-                    String colorIJ = chessBoard.board[i][j].getColor();
-                    String typeIJ = chessBoard.board[i][j].getType();
-
-                    if (typeIJ.equals("King")) {
-                        // Just check the immediate distance without the full canKingMove logic
-                        int rowDiffI = Math.abs(i - toRow);
-                        int colDiffJ = Math.abs(j - toCol);
-                        if (rowDiffI <= 1 && colDiffJ <= 1) {
-                            return false; // King would be in range of enemy king
-                        }
-                    } else {
-                        // For non-king pieces, use the full movement validation
-                        if (canMove(colorIJ, typeIJ, i, j, toRow, toCol)) {
-                            return false;
-                        }
-
-                    }
+        // STEP 1: Check enemy king proximity (kings must stay at least 2 squares apart)
+        for (int r = Math.max(0, row - 1); r <= Math.min(7, row + 1); r++) {
+            for (int c = Math.max(0, col - 1); c <= Math.min(7, col + 1); c++) {
+                ChessPiece piece = chessBoard.board[r][c];
+                if (piece != null && piece.getType().equals("King") && piece.getColor().equals(enemyColor)) {
+                    return false;  // Enemy king is too close
                 }
-
             }
         }
-        return true;
 
+        // STEP 2: Check for enemy pawns specifically (they control diagonals)
+        int pawnRow = color.equals("white") ? row + 1 : row - 1;  // Row where enemy pawns would be to attack
+        if (pawnRow >= 0 && pawnRow < 8) {  // Check board boundaries
+            // Check left diagonal
+            if (col - 1 >= 0) {
+                ChessPiece leftPawn = chessBoard.board[pawnRow][col - 1];
+                if (leftPawn != null && leftPawn.getType().equals("Pawn") &&
+                        leftPawn.getColor().equals(enemyColor)) {
+                    return false;  // Square is under attack by enemy pawn
+                }
+            }
+            // Check right diagonal
+            if (col + 1 < 8) {
+                ChessPiece rightPawn = chessBoard.board[pawnRow][col + 1];
+                if (rightPawn != null && rightPawn.getType().equals("Pawn") &&
+                        rightPawn.getColor().equals(enemyColor)) {
+                    return false;  // Square is under attack by enemy pawn
+                }
+            }
+        }
+
+        // STEP 3: Check all other enemy pieces by scanning the entire board
+        for (int r = 0; r < 8; r++) {
+            for (int c = 0; c < 8; c++) {
+                ChessPiece piece = chessBoard.board[r][c];
+                if (piece != null && piece.getColor().equals(enemyColor) && !piece.getType().equals("King")) {
+                    // Skip pawns as we've already handled their special case
+                    if (piece.getType().equals("Pawn")) {
+                        continue;
+                    }
+
+                    // For all other pieces, check if they can move to this square
+                    // We must temporarily remove any piece at the destination for accurate checking
+                    ChessPiece originalPiece = chessBoard.board[row][col];
+                    chessBoard.board[row][col] = null;  // Temporarily clear the square
+
+                    boolean canAttack = false;
+                    switch (piece.getType()) {
+                        case "Queen" -> canAttack = canQueenMove(enemyColor, r, c, row, col);
+                        case "Rook" -> canAttack = canRookMove(enemyColor, r, c, row, col);
+                        case "Bishop" -> canAttack = canBishopMove(enemyColor, r, c, row, col);
+                        case "Knight" -> canAttack = canKnightMove(enemyColor, r, c, row, col);
+                    }
+
+                    // Restore the original board state
+                    chessBoard.board[row][col] = originalPiece;
+
+                    if (canAttack) {
+                        return false;  // Square is under attack
+                    }
+                }
+            }
+        }
+
+        return true;  // Square is safe for the king
     }
 }
 
