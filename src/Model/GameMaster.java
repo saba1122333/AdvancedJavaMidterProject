@@ -49,10 +49,10 @@ public class GameMaster {
                 }
 
             }
-            // add castling logic
 
-            if (move.isPromotion){
-                if (canPromote(move.color,move.pieceType,fromRow,fromCol, move.toRow,move.toCol)){
+            if (move.isPromotion) {
+                // add castling logic
+                if (canPromote(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
                     // Remove the original pawn
                     chessBoard.board[fromRow][fromCol] = null;
 
@@ -68,12 +68,31 @@ public class GameMaster {
                     move.fromCol = fromCol;
 
                     System.out.println("Pawn promoted to " + promotionType + " at " +
-                            (char)('a' + move.toCol) + (8 - move.toRow));
+                            (char) ('a' + move.toCol) + (8 - move.toRow));
                     moveMade = true;
-                }else {
-                    System.out.println("Illegal Promotion attempt: " + move.notation);
-
                 }
+
+            }
+
+            if (move.isCheck) {
+                    if (canCheck(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol,move.isPromotion)) {
+                        System.out.println("Executing Check: " + move.notation);
+                        if (!move.isPromotion){
+
+                            ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
+                            ChessPiece capturedPiece = chessBoard.board[move.toRow][move.toCol];
+
+                            // 2. Temporarily make the move
+                            chessBoard.board[move.toRow][move.toCol] = movingPiece;
+                            chessBoard.board[fromRow][fromCol] = null;
+                            moveMade = true;
+
+                        }
+                        moveMade = true;
+                    }
+
+
+
 
             }
 
@@ -158,6 +177,48 @@ public class GameMaster {
         chessBoard.printBoard();
     }
 
+    private boolean canCheck(String color, String type, int fromRow, int fromCol, int toRow, int toCol,boolean isPromotion) {
+        // En-passant is not yet implemented
+
+        if (!isPromotion &&!(CanMove(color, type, fromRow, fromCol, toRow, toCol) || CanCapture(color, type, fromRow, fromCol, toRow, toCol, false))) {
+            return false;
+        }
+
+        // 3. Find the opponent's king
+        String opponentColor = color.equals("white") ? "black" : "white";
+        int[] kingsCoordinates = GetCandidateLocations(opponentColor, "King").size() == 1 ? GetCandidateLocations(opponentColor, "King").get(0) : null;
+        if (kingsCoordinates == null) {
+            // oponents king is not found or it is more that one king of opponents color which is wrong
+            return false;
+        }
+        int opponentKingRow = kingsCoordinates[0];
+        int opponentKingCol = kingsCoordinates[1];
+
+        if (isPromotion){
+            return !isSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol);
+        }
+
+
+        // temporary update squares
+        ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
+        ChessPiece capturedPiece = chessBoard.board[toRow][toCol];
+
+        // 2. Temporarily make the move
+        chessBoard.board[toRow][toCol] = movingPiece;
+        chessBoard.board[fromRow][fromCol] = null;
+
+
+        // return Pieces their  locations
+
+        if (isSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol)) {
+            chessBoard.board[fromRow][fromCol] = movingPiece;
+            chessBoard.board[toRow][toCol] = capturedPiece;
+            return false;
+        }
+        chessBoard.board[fromRow][fromCol] = movingPiece;
+        chessBoard.board[toRow][toCol] = capturedPiece;
+        return true;
+    }
 
     // get candidates coordinates for that move
     public List<int[]> GetCandidateLocations(String color, String type) {
