@@ -50,9 +50,35 @@ public class GameMaster {
 
             }
             // add castling logic
+
+            if (move.isPromotion){
+                if (canPromote(move.color,move.pieceType,fromRow,fromCol, move.toRow,move.toCol)){
+                    // Remove the original pawn
+                    chessBoard.board[fromRow][fromCol] = null;
+
+                    // Create the new promoted piece
+                    String promotionType = move.promotionPiece != null ? move.promotionPiece : "Queen"; // Default to Queen
+                    ChessPiece promotedPiece = new ChessPiece(promotionType, move.color);
+
+                    // Place the new piece on the board
+                    chessBoard.board[move.toRow][move.toCol] = promotedPiece;
+
+                    // Record the move source for history
+                    move.fromRow = fromRow;
+                    move.fromCol = fromCol;
+
+                    System.out.println("Pawn promoted to " + promotionType + " at " +
+                            (char)('a' + move.toCol) + (8 - move.toRow));
+                    moveMade = true;
+                }else {
+                    System.out.println("Illegal Promotion attempt: " + move.notation);
+
+                }
+
+            }
+
             if (move.isCastling) {
-                if (CanCastle(move))
-                {
+                if (CanCastle(move)) {
                     ChessPiece king = chessBoard.board[move.fromRow][move.fromCol];
 
                     // Calculate rook positions
@@ -64,20 +90,19 @@ public class GameMaster {
                     ChessPiece rook = chessBoard.board[move.fromRow][rookFromCol];
 
                     // move king
-                    chessBoard.board[move.toRow][move.toCol]=king;
-                    chessBoard.board[move.fromRow][move.toRow]=null;
+                    chessBoard.board[move.toRow][move.toCol] = king;
+                    chessBoard.board[move.fromRow][move.fromCol] = null;
 
                     king.setMoved();
 
                     // move rook
-                    chessBoard.board[move.toRow][rookToCol]=rook;
-                    chessBoard.board[move.fromRow][rookFromCol]=null;
+                    chessBoard.board[move.toRow][rookToCol] = rook;
+                    chessBoard.board[move.fromRow][rookFromCol] = null;
                     rook.setMoved();
 
                     System.out.println("Executing castling: " + move.notation);
                     moveMade = true;
-                }
-                else {
+                } else {
                     System.out.println("Illegal castling attempt: " + move.notation);
                 }
 
@@ -427,6 +452,28 @@ public class GameMaster {
     }
 
 
+    private boolean canPromote(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
+        // SECURITY CHECK 1: Only pawns can be promoted
+        if (!type.equals("Pawn")) {
+            System.out.println("Promotion rejected: Only pawns can be promoted");
+            return false;
+        }
+
+        // SECURITY CHECK 2: Promotion must occur on the correct rank
+        int promotionRank = color.equals("white") ? 0 : 7; // Rank 8 for white, rank 1 for black
+        if (toRow != promotionRank) {
+            System.out.println("Promotion rejected: Not at promotion rank");
+            return false;
+        }
+
+
+        // just promotion
+        return canPawnMove(color, fromRow, fromCol, toRow, toCol) || canPawnCapture(color, fromRow, fromCol, toRow, toCol, false);
+
+
+    }
+
+
     private boolean isSquareSafeForKing(String color, int row, int col) {
         String enemyColor = color.equals("white") ? "black" : "white";
 
@@ -441,7 +488,7 @@ public class GameMaster {
         }
 
         // STEP 2: Check for enemy pawns specifically (they control diagonals)
-        int pawnRow = color.equals("white") ? row + 1 : row - 1;  // Row where enemy pawns would be to attack
+        int pawnRow = color.equals("white") ? row - 1 : row + 1;  // Row where enemy pawns would be to attack
         if (pawnRow >= 0 && pawnRow < 8) {  // Check board boundaries
             // Check left diagonal
             if (col - 1 >= 0) {

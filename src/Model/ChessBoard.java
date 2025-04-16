@@ -60,7 +60,7 @@ public class ChessBoard {
     public void printBoard() {
 
         for (int row = 0; row < 8; row++) {
-            System.out.print((row + 1) + " ");
+            System.out.print((8-row) + " ");
             for (int col = 0; col < 8; col++) {
                 String symbol = board[row][col] != null ? board[row][col].getSymbol() : ". ";
                 System.out.print(symbol + " ");
