@@ -15,7 +15,7 @@ public class GameMaster {
 
     // we are just assuming there are only simple moves present, no castling,en Passant,promotion,check checkmate or capture
 
-    public  void MakeAllMoves(){
+    public void MakeAllMoves() {
         int i = 1;
         ChessMove prev = new ChessMove();
         for (int j = 0; j < chessMoveList.size(); j++) {
@@ -23,7 +23,7 @@ public class GameMaster {
             ChessMove current = chessMoveList.get(j);
             // check here is move was en passent
 //            isEnpassant(prev,current);
-            i+=1;
+            i += 1;
             MakeMove(current);
             prev = chessMoveList.get(j);
         }
@@ -38,21 +38,53 @@ public class GameMaster {
             int fromCol = candidateLocation[1];
 
 
-                if (move.disambiguationFile != null){
-                    if (move.fromCol !=fromCol){
-                        continue;
-                    }
+            if (move.disambiguationFile != null) {
+                if (move.fromCol != fromCol) {
+                    continue;
                 }
-                if(move.disambiguationRank!=null){
-                    if(move.fromRow!=fromRow){
-                        continue;
-                    }
+            }
+            if (move.disambiguationRank != null) {
+                if (move.fromRow != fromRow) {
+                    continue;
+                }
 
             }
+            // add castling logic
+            if (move.isCastling) {
+                if (CanCastle(move))
+                {
+                    ChessPiece king = chessBoard.board[move.fromRow][move.fromCol];
 
+                    // Calculate rook positions
+                    boolean isKingSideCastling = move.toCol == 6;
+                    int rookFromCol = isKingSideCastling ? 7 : 0;
+                    int rookToCol = isKingSideCastling ? 5 : 3;
+
+                    // Get the rook
+                    ChessPiece rook = chessBoard.board[move.fromRow][rookFromCol];
+
+                    // move king
+                    chessBoard.board[move.toRow][move.toCol]=king;
+                    chessBoard.board[move.fromRow][move.toRow]=null;
+
+                    king.setMoved();
+
+                    // move rook
+                    chessBoard.board[move.toRow][rookToCol]=rook;
+                    chessBoard.board[move.fromRow][rookFromCol]=null;
+                    rook.setMoved();
+
+                    System.out.println("Executing castling: " + move.notation);
+                    moveMade = true;
+                }
+                else {
+                    System.out.println("Illegal castling attempt: " + move.notation);
+                }
+
+            }
             // For captures
-            if (move.isCapture) {
-                if (canCapture(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, false)) {
+            else if (move.isCapture) {
+                if (CanCapture(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, false)) {
                     // Execute the capture
                     System.out.println("Executing capture: " + move.notation);
 
@@ -75,7 +107,7 @@ public class GameMaster {
                 }
             }
             // For non-captures
-            else if (canMove(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
+            else if (CanMove(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
                 // Execute the regular move
                 System.out.println("Executing move: " + move.notation);
 
@@ -119,7 +151,7 @@ public class GameMaster {
 
     // then we will check from given position if piece can make that move
 
-    public boolean canMove(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
+    public boolean CanMove(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
         return switch (type) {
             case "Pawn" -> canPawnMove(color, fromRow, fromCol, toRow, toCol);
             case "King" -> canKingMove(color, fromRow, fromCol, toRow, toCol);
@@ -133,9 +165,9 @@ public class GameMaster {
 
     }
 
-    public boolean canCapture(String color, String type, int fromRow, int fromCol, int toRow, int toCol,boolean isEnPassant) {
+    public boolean CanCapture(String color, String type, int fromRow, int fromCol, int toRow, int toCol, boolean isEnPassant) {
         return switch (type) {
-            case "Pawn" -> canPawnCapture(color, fromRow, fromCol, toRow, toCol,isEnPassant);
+            case "Pawn" -> canPawnCapture(color, fromRow, fromCol, toRow, toCol, isEnPassant);
             case "King" -> canKingMove(color, fromRow, fromCol, toRow, toCol);
             case "Queen" -> canQueenMove(color, fromRow, fromCol, toRow, toCol);
             case "Bishop" -> canBishopMove(color, fromRow, fromCol, toRow, toCol);
@@ -156,7 +188,7 @@ public class GameMaster {
         if (rowDiff == 0 && colDiff == 0) {
             return false;
         }
-        if (fromCol !=toCol){
+        if (fromCol != toCol) {
             return false;
         }
 
@@ -213,6 +245,7 @@ public class GameMaster {
         // All conditions met for a valid pawn capture
         return true;
     }
+
     public boolean canRookMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         // 1. Basic validation: can't stay in place and must move in a straight line
         int rowDiff = Math.abs(toRow - fromRow);
@@ -283,7 +316,7 @@ public class GameMaster {
         int row = fromRow + rowStep;
         int col = fromCol + colStep;
 
-        while (row != toRow ) {
+        while (row != toRow) {
             if (chessBoard.board[row][col] != null) {
                 return false; // Path is blocked
             }
@@ -350,10 +383,50 @@ public class GameMaster {
         return isSquareSafeForKing(color, toRow, toCol);
     }
 
+
     /**
-     * Determines if a square is safe for a king of the given color to move to.
-     * A square is safe if it's not controlled by any enemy piece.
+     * Determines if castling is legal for the given move.
      */
+    private boolean CanCastle(ChessMove move) {
+        // Extract the key information
+        int kingRow = move.fromRow;
+        int kingCol = move.fromCol;
+        boolean isKingSideCastling = move.toCol == 6;
+
+        // 1. Verify the king hasn't moved (using the isMoved flag)
+        ChessPiece king = chessBoard.board[kingRow][kingCol];
+        if (king == null || !king.getType().equals("King") || king.isMoved()) {
+            return false;  // King is missing or has moved
+        }
+
+        // 2. Identify and check the appropriate rook
+        int rookCol = isKingSideCastling ? 7 : 0;  // H-file or A-file
+        ChessPiece rook = chessBoard.board[kingRow][rookCol];
+        if (rook == null || !rook.getType().equals("Rook") || rook.isMoved()) {
+            return false;  // Rook is missing or has moved
+        }
+
+        // 3. Check if the path between king and rook is clear
+        int startCol = Math.min(kingCol, rookCol) + 1;
+        int endCol = Math.max(kingCol, rookCol);
+        for (int col = startCol; col < endCol; col++) {
+            if (chessBoard.board[kingRow][col] != null) {
+                return false;  // Path is blocked
+            }
+        }
+
+        // 4. Check if the king's path (including destination) is safe
+        int step = isKingSideCastling ? 1 : -1;
+        for (int col = kingCol; col != move.toCol + step; col += step) {
+            if (!isSquareSafeForKing(move.color, kingRow, col)) {
+                return false;  // King would move through or into check
+            }
+        }
+
+        return true;  // All castling conditions are met
+    }
+
+
     private boolean isSquareSafeForKing(String color, int row, int col) {
         String enemyColor = color.equals("white") ? "black" : "white";
 

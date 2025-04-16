@@ -46,10 +46,6 @@ public class ChessMovesParser {
 
         if (matcher.matches()) {
 
-            // match isEnPassant pattern
-            Pattern EnPassant = Pattern.compile("([a-h])(x)([a-h][1-8])");
-            Matcher EnPassantMatcher = EnPassant.matcher(cleanMove);
-
 
 
             // Extract piece type
