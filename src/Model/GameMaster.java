@@ -418,7 +418,7 @@ public class GameMaster {
         // 4. Check if the king's path (including destination) is safe
         int step = isKingSideCastling ? 1 : -1;
         for (int col = kingCol; col != move.toCol + step; col += step) {
-            if (!isSquareSafeForKing(move.color, kingRow, col)) {
+            if (isSquareSafeForKing(move.color, kingRow, col)) {
                 return false;  // King would move through or into check
             }
         }
