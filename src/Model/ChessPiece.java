@@ -15,10 +15,10 @@ public class ChessPiece {
     public String getColor() {
         return color;
     }
-    public boolean isMoved() {
+    public boolean IsMoved() {
         return isMoved;
     }
-    public void setMoved() {
+    public void SetMoved() {
         isMoved = true;
     }
     public String getSymbol() {

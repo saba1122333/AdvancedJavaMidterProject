@@ -1,22 +1,21 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 // A simplified chess board implementation
 public class ChessBoard {
+
 
     public ChessPiece[][] board;
 
 
     public ChessBoard() {
         board = new ChessPiece[8][8];
-        setupBoard();
+        SetupBoard();
+    }
+    public  void ResetBoard(){
+        SetupBoard();
     }
 
-    private void setupBoard() {
+    private void SetupBoard() {
         // Initialize empty board (all null)
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -57,7 +56,7 @@ public class ChessBoard {
     }
 
 
-    public void printBoard() {
+    public void PrintBoard() {
 
         for (int row = 0; row < 8; row++) {
             System.out.print((8-row) + " ");
