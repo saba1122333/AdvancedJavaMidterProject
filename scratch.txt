@@ -1,0 +1,47 @@
+[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "0-1"]
+[Link "https://www.chess.com/classroom/striped-snoozing-patch"]
+
+[d4, e5, d5, c5, dxc6, bxc6, Nc3, f6, e3, Ne7, Nge2, Bb7,
+Nf4, d6, Nd3, Qd7, Nc5, Na6, N3a4, O-O-O, Bd2, h5, Bxa6,
+g5, O-O, Nf5, Qe2, h4, Rfe1, Be7, b3, Rh6, a3, Rdh8, Ra2,
+R8h7, Kf1, g4, g3, Nxe3+, Kg1, hxg3, f3, gxh2+, Kf2, h1=Q,
+Kxe3, g3, Kd3, g2, Kc4, g1=Q, Qd3, Qf5, Kb4, Qe4+, Kc3, Qhh4,
+Kb2, Qgh1, b4, Qexe1, Ne6, Qee4, b5, Qh4e1, Qc3, Qb1#]
+
+
+
+
+8 ♖  ♘  ♗  ♕  ♔  ♗  ♘  ♖
+7 ♙  ♙  ♙  ♙  ♙  ♙  ♙  ♙
+6 .  .  .  .  .  .  .  .
+5 .  .  .  .  .  .  .  .
+4 .  .  .  .  .  .  .  .
+3 .  .  .  .  .  .  .  .
+2 ♟  ♟  ♟  ♟  ♟  ♟  ♟  ♟
+1 ♜  ♞  ♝  ♛  ♚  ♝  ♞  ♜
+  a  b  c  d  e  f  g  h
+00 01 02 03 04 05 06 07
+10 11 12 13 14 15 16 17
+20 21 22 23 24 25 26 27
+30 31 32 33 34 35 36 37
+40 41 42 43 44 45 46 47
+50 51 52 53 54 55 56 57
+60 61 62 63 64 65 66 67
+70 71 72 73 74 75 76 77
+
+
+
+
+
+
+
+
+
+
+
