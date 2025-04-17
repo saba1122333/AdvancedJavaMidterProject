@@ -10,13 +10,13 @@ import java.util.List;
 public class GameMasterController {
     ChessBoard chessBoard;
 
-
+    final boolean forMultipleGames;
     List<ChessMove> chessMoveList;
     StringBuilder errorReport;
 
-    public GameMasterController() {
-        this.chessBoard = new ChessBoard();
-        this.chessMoveList = new ArrayList<>();
+    public GameMasterController(ChessBoard chessBoard, boolean forMultipleGames) {
+        this.chessBoard = chessBoard;
+        this.forMultipleGames = forMultipleGames;
     }
     // first lets start with simple moves at start checks,pins,captures do not exist
 
@@ -32,28 +32,34 @@ public class GameMasterController {
     public void Evaluate() {
         int i = 1;
         for (ChessMove move : chessMoveList) {
-            System.out.println(i);
+            System.out.println("Move: " + (i) + " " + move.color + " " + move.notation);
             i += 1;
             MakeMove(move);
             if (!errorReport.isEmpty()) {
+
                 break;
             }
         }
         if (!errorReport.isEmpty()) {
+            System.out.println("Stopping Evaluation");
             System.out.println("Game was  played  with  Violations ");
             System.out.println(errorReport);
+
         } else {
             System.out.println("Game was played  with no Violations ");
         }
+        System.out.println("Visualizing Last Position ...");
         chessBoard.PrintBoard();
-        chessBoard.ResetBoard();
+        System.out.println("Resting Board");
+        if (forMultipleGames)
+            chessBoard.ResetBoard();
 
     }
 
     private void MakeMove(ChessMove move) {
         var candidateLocations = GetCandidateLocations(move.color, move.pieceType);
         boolean moveMade = false;
-        errorReport = candidateLocations.isEmpty() ? new StringBuilder("No " + move.color + " Candidate "  + " found on the board For: " + move.notation) : new StringBuilder();
+        errorReport = candidateLocations.isEmpty() ? new StringBuilder("No " + move.color + " Candidate " + " found on the board For: " + move.notation) : new StringBuilder();
 
 
         for (int[] candidateLocation : candidateLocations) {
@@ -108,7 +114,7 @@ public class GameMasterController {
                         // 2. Temporarily make the move
                         chessBoard.board[move.toRow][move.toCol] = movingPiece;
                         chessBoard.board[fromRow][fromCol] = null;
-                        moveMade = true;
+
 
                     }
                     moveMade = true;
