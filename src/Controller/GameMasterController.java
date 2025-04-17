@@ -1,22 +1,35 @@
-package Model;
+package Controller;
+
+import Model.ChessBoard;
+import Model.ChessMove;
+import Model.ChessPiece;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameMaster {
+public class GameMasterController {
     ChessBoard chessBoard;
+
+
     List<ChessMove> chessMoveList;
     StringBuilder errorReport;
 
-    public GameMaster(ChessBoard board, List<ChessMove> chessMoveList) {
-        this.chessBoard = board;
-        this.chessMoveList = chessMoveList;
+    public GameMasterController() {
+        this.chessBoard = new ChessBoard();
+        this.chessMoveList = new ArrayList<>();
     }
     // first lets start with simple moves at start checks,pins,captures do not exist
 
     // we are just assuming there are only simple moves present, no castling,en Passant,promotion,check checkmate or capture
+    public List<ChessMove> getChessMoveList() {
+        return chessMoveList;
+    }
 
-    public void MakeAllMoves() {
+    public void setChessMoveList(List<ChessMove> chessMoveList) {
+        this.chessMoveList = chessMoveList;
+    }
+
+    public void Evaluate() {
         int i = 1;
         for (ChessMove move : chessMoveList) {
             System.out.println(i);
@@ -26,22 +39,21 @@ public class GameMaster {
                 break;
             }
         }
-        if (!errorReport.isEmpty()){
+        if (!errorReport.isEmpty()) {
             System.out.println("Game was  played  with  Violations ");
             System.out.println(errorReport);
-        }
-        else {
+        } else {
             System.out.println("Game was played  with no Violations ");
         }
-       chessBoard.printBoard();
-
+        chessBoard.PrintBoard();
+        chessBoard.ResetBoard();
 
     }
 
-    public void MakeMove(ChessMove move) {
+    private void MakeMove(ChessMove move) {
         var candidateLocations = GetCandidateLocations(move.color, move.pieceType);
         boolean moveMade = false;
-        errorReport = candidateLocations.isEmpty() ? new StringBuilder("No " + move.color + " " + move.pieceType + " found on the board") : new StringBuilder();
+        errorReport = candidateLocations.isEmpty() ? new StringBuilder("No " + move.color + " Candidate "  + " found on the board For: " + move.notation) : new StringBuilder();
 
 
         for (int[] candidateLocation : candidateLocations) {
@@ -63,7 +75,7 @@ public class GameMaster {
 
             if (move.isPromotion) {
                 // add castling logic
-                if (canPromote(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
+                if (CanPromote(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
                     // Remove the original pawn
                     chessBoard.board[fromRow][fromCol] = null;
 
@@ -86,7 +98,7 @@ public class GameMaster {
             }
 
             if (move.isCheck) {
-                if (canCheck(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, move.isPromotion)) {
+                if (CanCheck(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, move.isPromotion)) {
                     System.out.println("Executing Check: " + move.notation);
                     if (!move.isPromotion) {
 
@@ -121,12 +133,12 @@ public class GameMaster {
                     chessBoard.board[move.toRow][move.toCol] = king;
                     chessBoard.board[move.fromRow][move.fromCol] = null;
 
-                    king.setMoved();
+                    king.SetMoved();
 
                     // move rook
                     chessBoard.board[move.toRow][rookToCol] = rook;
                     chessBoard.board[move.fromRow][rookFromCol] = null;
-                    rook.setMoved();
+                    rook.SetMoved();
 
                     System.out.println("Executing castling: " + move.notation);
                     moveMade = true;
@@ -143,7 +155,7 @@ public class GameMaster {
                     ChessPiece capturingPiece = chessBoard.board[fromRow][fromCol];
 
                     // If first move, mark as moved
-                    if (!capturingPiece.isMoved()) capturingPiece.setMoved();
+                    if (!capturingPiece.IsMoved()) capturingPiece.SetMoved();
 
                     // The captured piece is implicitly removed by being overwritten
                     chessBoard.board[move.toRow][move.toCol] = capturingPiece;
@@ -163,7 +175,7 @@ public class GameMaster {
                 System.out.println("Executing move: " + move.notation);
 
                 ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
-                if (!movingPiece.isMoved()) movingPiece.setMoved();
+                if (!movingPiece.IsMoved()) movingPiece.SetMoved();
 
                 chessBoard.board[move.toRow][move.toCol] = movingPiece;
                 chessBoard.board[fromRow][fromCol] = null;
@@ -201,7 +213,7 @@ public class GameMaster {
 
     }
 
-    private boolean canCheck(String color, String type, int fromRow, int fromCol, int toRow, int toCol, boolean isPromotion) {
+    private boolean CanCheck(String color, String type, int fromRow, int fromCol, int toRow, int toCol, boolean isPromotion) {
         // En-passant is not yet implemented
 
         if (!isPromotion && !(CanMove(color, type, fromRow, fromCol, toRow, toCol) || CanCapture(color, type, fromRow, fromCol, toRow, toCol, false))) {
@@ -219,7 +231,7 @@ public class GameMaster {
         int opponentKingCol = kingsCoordinates[1];
 
         if (isPromotion) {
-            return !isSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol);
+            return !IsSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol);
         }
 
 
@@ -234,7 +246,7 @@ public class GameMaster {
 
         // return Pieces  to their  locations
 
-        if (isSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol)) {
+        if (IsSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol)) {
             chessBoard.board[fromRow][fromCol] = movingPiece;
             chessBoard.board[toRow][toCol] = capturedPiece;
             return false;
@@ -245,7 +257,7 @@ public class GameMaster {
     }
 
     // get candidates coordinates for that move
-    public List<int[]> GetCandidateLocations(String color, String type) {
+    private List<int[]> GetCandidateLocations(String color, String type) {
         List<int[]> candidateLocations = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -261,7 +273,7 @@ public class GameMaster {
 
     // then we will check from given position if piece can make that move
 
-    public boolean CanMove(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean CanMove(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
         return switch (type) {
             case "Pawn" -> canPawnMove(color, fromRow, fromCol, toRow, toCol);
             case "King" -> canKingMove(color, fromRow, fromCol, toRow, toCol);
@@ -275,7 +287,7 @@ public class GameMaster {
 
     }
 
-    public boolean CanCapture(String color, String type, int fromRow, int fromCol, int toRow, int toCol, boolean isEnPassant) {
+    private boolean CanCapture(String color, String type, int fromRow, int fromCol, int toRow, int toCol, boolean isEnPassant) {
         return switch (type) {
             case "Pawn" -> canPawnCapture(color, fromRow, fromCol, toRow, toCol, isEnPassant);
             case "King" -> canKingMove(color, fromRow, fromCol, toRow, toCol);
@@ -290,7 +302,7 @@ public class GameMaster {
     }
 
     // no captures and enPassant included
-    public boolean canPawnMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean canPawnMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         // 1. Verify pawn is moving in the same column (no captures in this method)
         int rowDiff = Math.abs(toRow - fromRow);
         int colDiff = Math.abs(toCol - fromCol);
@@ -313,7 +325,7 @@ public class GameMaster {
 
         // 4. Verify distance is valid (1 square, or 2 if first move)
         ChessPiece pawn = chessBoard.board[fromRow][fromCol];
-        if (moveDistance > 2 || (moveDistance == 2 && pawn.isMoved())) {
+        if (moveDistance > 2 || (moveDistance == 2 && pawn.IsMoved())) {
             return false;  // Can't move more than 2 squares, or 2 squares after first move
         }
 
@@ -329,7 +341,7 @@ public class GameMaster {
         }
     }
 
-    public boolean canPawnCapture(String color, int fromRow, int fromCol, int toRow, int toCol, boolean isEnPassant) {
+    private boolean canPawnCapture(String color, int fromRow, int fromCol, int toRow, int toCol, boolean isEnPassant) {
         // Ignore the isEnPassant parameter for now - we'll handle standard captures
 
         // 1. Verify diagonal movement (exactly 1 square diagonally)
@@ -356,7 +368,7 @@ public class GameMaster {
         return true;
     }
 
-    public boolean canRookMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean canRookMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         // 1. Basic validation: can't stay in place and must move in a straight line
         int rowDiff = Math.abs(toRow - fromRow);
         int colDiff = Math.abs(toCol - fromCol);
@@ -490,7 +502,7 @@ public class GameMaster {
         }
 
         // PART 3: Check if destination square is safe (not under attack)
-        return isSquareSafeForKing(color, toRow, toCol);
+        return IsSquareSafeForKing(color, toRow, toCol);
     }
 
 
@@ -505,14 +517,14 @@ public class GameMaster {
 
         // 1. Verify the king hasn't moved (using the isMoved flag)
         ChessPiece king = chessBoard.board[kingRow][kingCol];
-        if (king == null || !king.getType().equals("King") || king.isMoved()) {
+        if (king == null || !king.getType().equals("King") || king.IsMoved()) {
             return false;  // King is missing or has moved
         }
 
         // 2. Identify and check the appropriate rook
         int rookCol = isKingSideCastling ? 7 : 0;  // H-file or A-file
         ChessPiece rook = chessBoard.board[kingRow][rookCol];
-        if (rook == null || !rook.getType().equals("Rook") || rook.isMoved()) {
+        if (rook == null || !rook.getType().equals("Rook") || rook.IsMoved()) {
             return false;  // Rook is missing or has moved
         }
 
@@ -528,7 +540,7 @@ public class GameMaster {
         // 4. Check if the king's path (including destination) is safe
         int step = isKingSideCastling ? 1 : -1;
         for (int col = kingCol; col != move.toCol + step; col += step) {
-            if (!isSquareSafeForKing(move.color, kingRow, col)) {
+            if (!IsSquareSafeForKing(move.color, kingRow, col)) {
                 return false;  // King would move through or into check
             }
         }
@@ -537,7 +549,7 @@ public class GameMaster {
     }
 
 
-    private boolean canPromote(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean CanPromote(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
         // SECURITY CHECK 1: Only pawns can be promoted
         if (!type.equals("Pawn")) {
             System.out.println("Promotion rejected: Only pawns can be promoted");
@@ -559,7 +571,7 @@ public class GameMaster {
     }
 
 
-    private boolean isSquareSafeForKing(String color, int row, int col) {
+    private boolean IsSquareSafeForKing(String color, int row, int col) {
         String enemyColor = color.equals("white") ? "black" : "white";
 
         // STEP 1: Check enemy king proximity (kings must stay at least 2 squares apart)
