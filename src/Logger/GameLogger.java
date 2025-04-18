@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.nio.file.Paths;
 
 public class GameLogger {
+
     // Main application logger
     private static final Logger MAIN_LOGGER = Logger.getLogger("ChessApplication");
     private static boolean initialized = false;

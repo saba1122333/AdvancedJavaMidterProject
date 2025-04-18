@@ -9,8 +9,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+
         PGNParser parser = new PGNParser();
-        parser.parsePGNFile("/Users/sabatchumburidze/Desktop/Advanced Java/AdvancedJavaMIdtermProject/AdvancedJavaMIdtermProject/src/testPgns/Philidor.pgn");
+        parser.parsePGNFile("src/testPgns/Philidor.pgn");
 
         GameMasterController gameMasterController = new GameMasterController(new ChessBoard(),true);
 
