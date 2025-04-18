@@ -1,0 +1,586 @@
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 1 white e4
+[INFO] [2025-04-18 23:54:02] [main] Executing move: e4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 2 black e5
+[INFO] [2025-04-18 23:54:02] [main] Executing move: e5
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 3 white f4
+[INFO] [2025-04-18 23:54:02] [main] Executing move: f4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 4 black exf4
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: exf4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 5 white Nf3
+[INFO] [2025-04-18 23:54:02] [main] Executing move: Nf3
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 6 black g5
+[INFO] [2025-04-18 23:54:02] [main] Executing move: g5
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 7 white Bc4
+[INFO] [2025-04-18 23:54:02] [main] Executing move: Bc4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 8 black Bg7
+[INFO] [2025-04-18 23:54:02] [main] Executing move: Bg7
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 9 white h4
+[INFO] [2025-04-18 23:54:02] [main] Executing move: h4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 10 black h6
+[INFO] [2025-04-18 23:54:02] [main] Executing move: h6
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 11 white hxg5
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: hxg5
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 12 black hxg5
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: hxg5
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 13 white Rxh8
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: Rxh8
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 14 black Bxh8
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: Bxh8
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 15 white d4
+[INFO] [2025-04-18 23:54:02] [main] Executing move: d4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 16 black g4
+[INFO] [2025-04-18 23:54:02] [main] Executing move: g4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 17 white Bxf4
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: Bxf4
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 18 black gxf3
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: gxf3
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 19 white Qxf3
+[INFO] [2025-04-18 23:54:02] [main] Executing capture: Qxf3
+[INFO] [2025-04-18 23:54:02] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:02] [main] Move: 20 black Qe@
+[WARNING] [2025-04-18 23:54:03] [main] Stopping Evaluation
+[WARNING] [2025-04-18 23:54:03] [main] Game was  played  with  Violations 
+[WARNING] [2025-04-18 23:54:03] [main] No black Candidate  found on the board For: Qe@
+[WARNING] [2025-04-18 23:54:03] [main] Ending Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Visualizing Last Position ...
+[INFO] [2025-04-18 23:54:03] [main] 
+8 ♜  ♞  ♝  ♛  ♚  .  ♞  ♝  
+7 ♟  ♟  ♟  ♟  .  ♟  .  .  
+6 .  .  .  .  .  .  .  .  
+5 .  .  .  .  .  .  .  .  
+4 .  .  ♗  ♙  ♙  ♗  .  .  
+3 .  .  .  .  .  ♕  .  .  
+2 ♙  ♙  ♙  .  .  .  ♙  .  
+1 ♖  ♘  .  .  ♔  .  .  .  
+  a  b  c  d  e  f  g  h  
+
+
+[INFO] [2025-04-18 23:54:03] [main] Resetting board
+[INFO] [2025-04-18 23:54:03] [main] Evaluation has Ended
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 1 white d4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: d4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 2 black d5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: d5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 3 white c4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 4 black dxc4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: dxc4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 5 white e3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: e3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 6 black e5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: e5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 7 white d5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: d5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 8 black c6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 9 white Bxc4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxc4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 10 black b5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 11 white Bb3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bb3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 12 black c5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 13 white a4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: a4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 14 black c4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 15 white Bc2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bc2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 16 black Bb7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bb7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 17 white e4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: e4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 18 black a6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: a6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 19 white Bd2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bd2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 20 black Bc5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 21 white Qe2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qe2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 22 black Ne7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ne7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 23 white Nf3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nf3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 24 black f6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: f6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 25 white axb5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: axb5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 26 black axb5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: axb5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 27 white Rxa8
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxa8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 28 black Bxa8
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxa8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 29 white O-O
+[INFO] [2025-04-18 23:54:03] [main] Executing castling: O-O
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 30 black Qb6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qb6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 31 white Nc3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nc3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 32 black Bb4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bb4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 33 white b3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 34 black cxb3
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: cxb3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 35 white Bxb3
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxb3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 36 black O-O
+[INFO] [2025-04-18 23:54:03] [main] Executing castling: O-O
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 37 white d6+
+[INFO] [2025-04-18 23:54:03] [main] Executing Check: d6+
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 38 black Kh8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kh8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 39 white dxe7
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: dxe7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 40 black Bxe7
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxe7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 41 white Rb1
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rb1
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 42 black b4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 43 white Nd5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nd5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 44 black Bxd5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxd5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 45 white Bxd5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxd5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 46 black f5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: f5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 47 white Ne1
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ne1
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 48 black fxe4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: fxe4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 49 white Bxe4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxe4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 50 black Na6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Na6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 51 white Nd3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nd3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 52 black b3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 53 white Bd5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bd5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 54 black b2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 55 white Rxb2
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxb2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 56 black Qd4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 57 white Bb7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bb7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 58 black Nc5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 59 white Be3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Be3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 60 black Qxd3
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Qxd3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 61 white Bxc5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 62 black Qxe2
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Qxe2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 63 white Rxe2
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxe2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 64 black Bxc5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 65 white Rc2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rc2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 66 black Bd4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 67 white Kf1
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kf1
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 68 black g6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: g6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 69 white Rc8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rc8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 70 black Rxc8
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxc8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 71 white Bxc8
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxc8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 72 black Kg7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kg7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 73 white h4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: h4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 74 black h5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: h5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 75 white Ke2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ke2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 76 black Kf6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kf6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 77 white Kf3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kf3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 78 black Kg7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kg7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 79 white Ke4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ke4
+[INFO] [2025-04-18 23:54:03] [main] Game was played  with no Violations 
+[WARNING] [2025-04-18 23:54:03] [main] Ending Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Visualizing Last Position ...
+[INFO] [2025-04-18 23:54:03] [main] 
+8 .  .  ♗  .  .  .  .  .  
+7 .  .  .  .  .  .  ♚  .  
+6 .  .  .  .  .  .  ♟  .  
+5 .  .  .  .  ♟  .  .  ♟  
+4 .  .  .  ♝  ♔  .  .  ♙  
+3 .  .  .  .  .  .  .  .  
+2 .  .  .  .  .  ♙  ♙  .  
+1 .  .  .  .  .  .  .  .  
+  a  b  c  d  e  f  g  h  
+
+
+[INFO] [2025-04-18 23:54:03] [main] Resetting board
+[INFO] [2025-04-18 23:54:03] [main] Evaluation has Ended
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 1 white e4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: e4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 2 black c5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 3 white f4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: f4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 4 black Nc6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nc6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 5 white Nf3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nf3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 6 black e6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: e6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 7 white c3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 8 black d5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: d5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 9 white e5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: e5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 10 black f5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: f5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 11 white d4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: d4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 12 black Nh6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nh6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 13 white h3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: h3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 14 black Qb6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qb6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 15 white b3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 16 black Bd7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bd7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 17 white Be3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Be3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 18 black Nf7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nf7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 19 white Qd2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qd2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 20 black O-O-O
+[INFO] [2025-04-18 23:54:03] [main] Executing castling: O-O-O
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 21 white Qf2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qf2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 22 black cxd4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: cxd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 23 white Nxd4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Nxd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 24 black Nxd4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Nxd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 25 white Bxd4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 26 black Qc6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qc6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 27 white Nd2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nd2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 28 black b6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: b6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 29 white a4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: a4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 30 black Bc5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 31 white Bb5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Bb5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 32 black Bxd4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 33 white Qxd4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Qxd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 34 black Qc5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Qc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 35 white Nf3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nf3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 36 black Bxb5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Bxb5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 37 white Qxc5+
+[INFO] [2025-04-18 23:54:03] [main] Executing Check: Qxc5+
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 38 black bxc5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: bxc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 39 white axb5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: axb5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 40 black Kb7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kb7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 41 white Ke2
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ke2
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 42 black Ra8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ra8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 43 white Ra6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ra6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 44 black Rhe8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rhe8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 45 white Rd1
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rd1
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 46 black Nd8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nd8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 47 white Ne1
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ne1
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 48 black c4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: c4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 49 white bxc4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: bxc4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 50 black dxc4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: dxc4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 51 white Rd7+
+[INFO] [2025-04-18 23:54:03] [main] Executing Check: Rd7+
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 52 black Kc8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kc8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 53 white Rxg7
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxg7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 54 black Rb8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rb8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 55 white Raxa7
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Raxa7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 56 black Rxb5
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxb5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 57 white Rc7+
+[INFO] [2025-04-18 23:54:03] [main] Executing Check: Rc7+
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 58 black Kb8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kb8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 59 white Rxc4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxc4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 60 black Rb7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rb7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 61 white Rb4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Rb4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 62 black Rxb4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxb4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 63 white cxb4
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: cxb4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 64 black Nc6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nc6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 65 white Nd3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nd3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 66 black Re7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Re7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 67 white Rxe7
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Rxe7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 68 black Nxe7
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Nxe7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 69 white Nc5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nc5
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 70 black Ng6
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ng6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 71 white Nxe6
+[INFO] [2025-04-18 23:54:03] [main] Executing capture: Nxe6
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 72 black Kc8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kc8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 73 white Ke3
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ke3
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 74 black Kd7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Kd7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 75 white Nd4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Nd4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 76 black Ne7
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ne7
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 77 white g4
+[INFO] [2025-04-18 23:54:03] [main] Executing move: g4
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 78 black Ke8
+[INFO] [2025-04-18 23:54:03] [main] Executing move: Ke8
+[INFO] [2025-04-18 23:54:03] [main] Starting Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Move: 79 white g5
+[INFO] [2025-04-18 23:54:03] [main] Executing move: g5
+[INFO] [2025-04-18 23:54:03] [main] Game was played  with no Violations 
+[WARNING] [2025-04-18 23:54:03] [main] Ending Evaluation
+[INFO] [2025-04-18 23:54:03] [main] Visualizing Last Position ...
+[INFO] [2025-04-18 23:54:03] [main] 
+8 .  .  .  .  ♚  .  .  .  
+7 .  .  .  .  ♞  .  .  ♟  
+6 .  .  .  .  .  .  .  .  
+5 .  .  .  .  ♙  ♟  ♙  .  
+4 .  ♙  .  ♘  .  ♙  .  .  
+3 .  .  .  .  ♔  .  .  ♙  
+2 .  .  .  .  .  .  .  .  
+1 .  .  .  .  .  .  .  .  
+  a  b  c  d  e  f  g  h  
+
+
+[INFO] [2025-04-18 23:54:03] [main] Resetting board
+[INFO] [2025-04-18 23:54:03] [main] Evaluation has Ended

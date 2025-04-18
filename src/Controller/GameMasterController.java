@@ -1,5 +1,6 @@
-package Controller;
 
+package Controller;
+import java.util.*;
 import Model.ChessBoard;
 import Model.ChessMove;
 import Model.ChessPiece;
@@ -18,9 +19,7 @@ public class GameMasterController {
         this.chessBoard = chessBoard;
         this.forMultipleGames = forMultipleGames;
     }
-    // first lets start with simple moves at start checks,pins,captures do not exist
 
-    // we are just assuming there are only simple moves present, no castling,en Passant,promotion,check checkmate or capture
     public List<ChessMove> getChessMoveList() {
         return chessMoveList;
     }
@@ -32,27 +31,36 @@ public class GameMasterController {
     public void Evaluate() {
         int i = 1;
         for (ChessMove move : chessMoveList) {
-            System.out.println("Move: " + (i) + " " + move.color + " " + move.notation);
+
+            Util.GameLogger.info("Starting Evaluation");
+            Util.GameLogger.info("Move: " + (i) + " " + move.color + " " + move.notation);
+
+
             i += 1;
             MakeMove(move);
             if (!errorReport.isEmpty()) {
-
                 break;
             }
         }
         if (!errorReport.isEmpty()) {
-            System.out.println("Stopping Evaluation");
-            System.out.println("Game was  played  with  Violations ");
-            System.out.println(errorReport);
+            Util.GameLogger.warning("Stopping Evaluation");
+            Util.GameLogger.warning("Game was  played  with  Violations ");
+            Util.GameLogger.warning(errorReport.toString());
 
         } else {
-            System.out.println("Game was played  with no Violations ");
+            Util.GameLogger.info("Game was played  with no Violations ");
         }
-        System.out.println("Visualizing Last Position ...");
+        Util.GameLogger.warning("Ending Evaluation");
+        Util.GameLogger.info("Visualizing Last Position ...");
+
         chessBoard.PrintBoard();
-        System.out.println("Resting Board");
-        if (forMultipleGames)
+        if (forMultipleGames){
+            Util.GameLogger.info("Resetting board");
             chessBoard.ResetBoard();
+        }
+        Util.GameLogger.info("Evaluation has Ended");
+
+
 
     }
 
@@ -105,7 +113,7 @@ public class GameMasterController {
 
             if (move.isCheck) {
                 if (CanCheck(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, move.isPromotion)) {
-                    System.out.println("Executing Check: " + move.notation);
+                    Util.GameLogger.info("Executing Check: " + move.notation);
                     if (!move.isPromotion) {
 
                         ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
@@ -126,6 +134,7 @@ public class GameMasterController {
             if (move.isCastling) {
                 if (CanCastle(move)) {
                     ChessPiece king = chessBoard.board[move.fromRow][move.fromCol];
+                    Util.GameLogger.info("Executing castling: " + move.notation);
 
                     // Calculate rook positions
                     boolean isKingSideCastling = move.toCol == 6;
@@ -146,7 +155,6 @@ public class GameMasterController {
                     chessBoard.board[move.fromRow][rookFromCol] = null;
                     rook.SetMoved();
 
-                    System.out.println("Executing castling: " + move.notation);
                     moveMade = true;
                 }
 
@@ -155,7 +163,7 @@ public class GameMasterController {
             else if (move.isCapture) {
                 if (CanCapture(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, false)) {
                     // Execute the capture
-                    System.out.println("Executing capture: " + move.notation);
+                    Util.GameLogger.info("Executing capture: " + move.notation);
 
                     // Store the piece being moved
                     ChessPiece capturingPiece = chessBoard.board[fromRow][fromCol];
@@ -178,7 +186,7 @@ public class GameMasterController {
             // For non-captures
             else if (CanMove(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
                 // Execute the regular move
-                System.out.println("Executing move: " + move.notation);
+                Util.GameLogger.info("Executing move: " + move.notation);
 
                 ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
                 if (!movingPiece.IsMoved()) movingPiece.SetMoved();
@@ -647,4 +655,5 @@ public class GameMasterController {
         return true;  // Square is safe for the king
     }
 }
+
 

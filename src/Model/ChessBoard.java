@@ -55,25 +55,26 @@ public class ChessBoard {
         board[7][7] = new ChessPiece("Rook", "white");
     }
 
-
     public void PrintBoard() {
+        StringBuilder boardView = new StringBuilder("\n");
 
         for (int row = 0; row < 8; row++) {
-            System.out.print((8-row) + " ");
+            boardView.append((8-row)).append(" ");
             for (int col = 0; col < 8; col++) {
                 String symbol = board[row][col] != null ? board[row][col].getSymbol() : ". ";
-                System.out.print(symbol + " ");
+                boardView.append(symbol).append(" ");
             }
-            System.out.println();
+            boardView.append("\n");
         }
+
+        boardView.append("  ");
         for (char c = 'a'; c <= 'h'; c++) {
-            System.out.print("  " + c);
+            boardView.append(c).append("  ");
         }
+        boardView.append("\n\n");
 
-        System.out.println();
-        System.out.println();
-
+        // Log the board visualization
+        Util.GameLogger.info(boardView.toString());
     }
-
 
 }
