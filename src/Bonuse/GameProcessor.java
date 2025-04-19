@@ -12,13 +12,7 @@ import java.util.concurrent.*;
 
 public class GameProcessor {
 
-    /**
-     * Parses each PGN file in parallel, and in the same thread immediately evaluates
-     * every game found using a thread‑specific GameMasterController.
-     *
-     * @param filePaths the list of PGN files to process
-     * @param nThreads  the size of the thread‑pool (and number of controllers)
-     */
+
     public static void processGames(List<String> filePaths, int nThreads)
             throws InterruptedException, ExecutionException {
 
