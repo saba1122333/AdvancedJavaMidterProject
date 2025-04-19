@@ -9,19 +9,17 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        // welcome to script this is default code ready to be run in  single thread for streamline process from pgn to
+        // Parser.log and Games.log file which logs and documents every step of the way how pgn file is parsed transformed and evaluated
+        // I will wish myself best of luck hope you will like it...  :)
 
         PGNParser parser = new PGNParser();
         parser.parsePGNFile("src/testPgns/Philidor.pgn");
-
-        GameMasterController gameMasterController = new GameMasterController(new ChessBoard(),true);
-
-        int GameCounter = 1;
-        for (List<String> move : parser.getMoves()) {
+        GameMasterController gameMasterController = new GameMasterController(new ChessBoard(), true);
+        for (List<String> move : parser.getGameList()) {
             List<ChessMove> chessMoves = ChessMovesParser.parse(move);
-            System.out.println("Game" + GameCounter);
             gameMasterController.setChessMoveList(chessMoves);
             gameMasterController.Evaluate();
-            GameCounter += 1;
 
         }
 

@@ -249,7 +249,7 @@ import java.util.regex.Pattern;
  */
 public class PGNParser {
     // Collections to store parsed games
-    private List<List<String>> moves = new ArrayList<>();
+    private List<List<String>> GameList = new ArrayList<>();
 
     // State machine states
     private enum ParserState {
@@ -265,7 +265,7 @@ public class PGNParser {
      */
     public void parsePGNFile(String fileName) {
         // Clear any previous data
-        moves.clear();
+        GameList.clear();
 
         Util.PGNLogger.info("Starting to parse PGN file: " + fileName);
 
@@ -346,7 +346,7 @@ public class PGNParser {
                 processMoves(currentMoves, ++gameCount);
             }
 
-            Util.PGNLogger.info("Completed parsing PGN file. Successfully parsed " + moves.size() + " games.");
+            Util.PGNLogger.info("Completed parsing PGN file. Successfully parsed " + GameList.size() + " games.");
 
         } catch (IOException e) {
             Util.PGNLogger.error("Error reading PGN file: " + fileName);
@@ -448,13 +448,13 @@ public class PGNParser {
         }
 
         Util.PGNLogger.info("Game #" + gameNumber + " was successfully parsed with " + moveList.size() + " moves");
-        moves.add(moveList);
+        GameList.add(moveList);
     }
 
     /**
      * Get the parsed moves for all games
      */
-    public List<List<String>> getMoves() {
-        return moves;
+    public List<List<String>> getGameList() {
+        return GameList;
     }
 }

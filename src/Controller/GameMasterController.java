@@ -1,6 +1,5 @@
 
 package Controller;
-import java.util.*;
 import Model.ChessBoard;
 import Model.ChessMove;
 import Model.ChessPiece;
@@ -23,6 +22,10 @@ public class GameMasterController {
     public List<ChessMove> getChessMoveList() {
         return chessMoveList;
     }
+    public void Flush() {
+        chessMoveList = null;
+    }
+
 
     public void setChessMoveList(List<ChessMove> chessMoveList) {
         this.chessMoveList = chessMoveList;
@@ -432,7 +435,7 @@ public class GameMasterController {
     }
 
 
-    public boolean canBishopMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean canBishopMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         // 1. Basic validation - must be a diagonal move
         int rowDiff = Math.abs(toRow - fromRow);
         int colDiff = Math.abs(toCol - fromCol);
@@ -469,7 +472,7 @@ public class GameMasterController {
         return true; // All checks passed
     }
 
-    public boolean canQueenMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean canQueenMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         return canBishopMove(color, fromRow, fromCol, toRow, toCol) || canRookMove(color, fromRow, fromCol, toRow, toCol);
     }
 
@@ -499,7 +502,7 @@ public class GameMasterController {
         return true; // All checks passed
     }
 
-    public boolean canKingMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean canKingMove(String color, int fromRow, int fromCol, int toRow, int toCol) {
         // PART 1: Basic movement validation
         // King can only move one square in any direction
         int rowDiff = Math.abs(toRow - fromRow);
