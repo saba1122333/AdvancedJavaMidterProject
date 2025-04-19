@@ -83,7 +83,7 @@ public class GameLogger {
     /**
      * Initialize the main logger
      */
-    public static void init() {
+    public static synchronized void init() {
         if (initialized) return;
 
         try {

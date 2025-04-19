@@ -15,6 +15,9 @@ import java.util.concurrent.Future;
 
 public class ThreadMain {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        // welcome to script this is second default code ready to be run with ExecutionService using fixed and newSingleThreadExecutor Services
+        // which displays simples translation from parallel to sequential execution making process tiny bit faster
+        // I will wish myself best of luck hope you will like it...  :)
 
         List<String> files = List.of(
                 "src/testPgns/Philidor.pgn",

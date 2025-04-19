@@ -82,7 +82,7 @@ public class PGNLogger {
     /**
      * Initialize the main logger
      */
-    public static void init() {
+    public static synchronized void init() {
         if (initialized) return;
 
         try {
