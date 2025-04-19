@@ -1,108 +1,197 @@
 # Chess Game Processor
 
-A Java application for parsing, validating, and processing chess games in standard notation.
+A Java application for parsing, validating, and analyzing chess games in standard notation, with support for parallel processing.
 
 ## Overview
 
-This application provides a comprehensive chess game processing system that can:
-- Parse PGN (Portable Game Notation) files
-- Convert algebraic notation to game moves
-- Validate move legality according to chess rules
-- Execute and visualize chess games
+The Chess Game Processor provides a comprehensive framework for handling chess games from PGN (Portable Game Notation) files. The application can parse game notation, validate moves according to chess rules, and visualize game states. It implements a strategic parallel processing architecture to efficiently handle large datasets while maintaining logging integrity.
+
+![Chess Processing Pipeline Visualization](https://via.placeholder.com/800x400?text=Chess+Processing+Pipeline)
 
 ## Features
 
-- **PGN File Parsing**: Read and parse PGN files with robust error handling
-- **Chess Move Parsing**: Support for standard algebraic notation including:
+### Game Processing
+- **PGN File Parsing**: Robust state machine-based parser for chess game notation
+- **Chess Move Parsing**: Support for all standard algebraic notation including:
   - Regular moves (e.g., "e4", "Nf3")
   - Captures (e.g., "Bxe5", "dxe5")
   - Special notation for check (+) and checkmate (#)
   - Castling (O-O, O-O-O)
   - Pawn promotion (e.g., "e8=Q")
-  - Disambiguation of moves (e.g., "Rad1", "R1d4")
-- **Move Validation**: Validates moves based on:
-  - Piece movement rules
+  - Disambiguation (e.g., "Rad1", "R1d4")
+- **Move Validation**: Complete rule-based validation for:
+  - Piece movement patterns
   - Path obstruction
   - Capture legality
-  - Special moves (castling, en passant, promotion)
-- **Chess Board Management**: Visual representation of the board state
-- **Multiple Game Support**: Process and validate multiple games from a single PGN file
+  - Special moves (castling, promotion)
+- **Board Visualization**: Text-based representation of the chess board
 
+### Parallel Processing Architecture
 
+The application implements a strategic "funnel" architecture that balances parallel processing with controlled evaluation:
 
-### Model
-- `ChessBoard`: Represents the 8x8 chess board and pieces
-- `ChessPiece`: Represents individual pieces with properties
-- `ChessMove`: Contains move data including notation, coordinates, and special flags
+```
+Multiple Raw      Multiple            Sequential
+Material Lines    Assembly Lines      Quality Control
+┌─────────┐       ┌─────────┐         ┌─────────┐
+│ Parser 1│──┐    │ Moves 1 │──┐      │         │
+└─────────┘  │    └─────────┘  │      │         │
+┌─────────┐  ├───►┌─────────┐  ├─────►│  Single │
+│ Parser 2│──┤    │ Moves 2 │──┤      │Evaluator│
+└─────────┘  │    └─────────┘  │      │         │
+┌─────────┐  │    ┌─────────┐  │      │         │
+│ Parser 3│──┘    │ Moves 3 │──┘      └─────────┘
+└─────────┘       └─────────┘
+```
 
-### Parser
-- `PGNParser`: Extracts games from PGN files
+This design:
+1. **Parallelizes the Heavy Work**: File parsing and move conversion happen concurrently
+2. **Maintains Logging Clarity**: Game evaluation occurs sequentially to ensure clean logging
+3. **Optimizes Resource Allocation**: Computing power is focused where it delivers maximum returns
+
+## System Architecture
+
+The application follows a clean architecture pattern with distinct layers:
+
+### Model Layer
+- `ChessBoard`: Represents the 8x8 chess board and manages piece positions
+- `ChessPiece`: Encapsulates chess pieces with properties like type, color, and movement state
+- `ChessMove`: Contains complete move data including notation, coordinates, and special flags
+
+### Parser Layer
+- `PGNParser`: Extracts game data from PGN files using a state machine approach
 - `ChessMovesParser`: Converts algebraic notation to structured move data
 
-### Controller
-- `GameMasterController`: Manages game flow, validates moves, and updates the board
+### Controller Layer
+- `GameMasterController`: Coordinates game evaluation, move validation, and board updates
 
-## Requirements
+### Concurrency Layer
+- `GameProcessor`: Manages the parallel processing pipeline with thread safety mechanisms
 
-- Java 17 or higher (supports switch expressions)
-- JUnit for running tests
+### Logging System
+- Thread-safe logging with context awareness
+- Hierarchical log structure (application, functional, and file-specific logs)
+- Clean separation of parsing and evaluation logs
 
-## How to Use
+## Thread Safety Implementation
 
-### Running the Application
+The application implements several critical patterns to ensure thread safety:
 
-1. Clone the repository
-2. Compile the Java files
-3. Run the Main class with a path to your PGN file:
+1. **Synchronized Initialization**: Prevents race conditions during logger setup
+   ```java
+   public static synchronized void init() {
+       if (initialized) return;
+       // initialization code
+       initialized = true;
+   }
+   ```
+
+2. **Thread-Local Context**: Isolates thread-specific data without locking
+   ```java
+   private static final ThreadLocal<String> CONTEXT = new ThreadLocal<>();
+   ```
+
+3. **Controller Per Thread**: Prevents shared state corruption
+   ```java
+   ThreadLocal<GameMasterController> controllerTL = ThreadLocal.withInitial(() ->
+       controllers.get(assigner.getAndIncrement() % nThreads)
+   );
+   ```
+
+4. **Strategic Parallelism**: Parallel where independent, sequential where coordination matters
+
+## Usage Examples
+
+### Single-Threaded Processing
 
 ```java
-// Example from Main.java
+// Simple single-threaded processing
 PGNParser parser = new PGNParser();
-parser.parsePGNFile("/path/to/your/pgn/file.pgn");
+parser.parsePGNFile("path/to/games.pgn");
+GameMasterController controller = new GameMasterController(new ChessBoard(), true);
 
-GameMasterController gameMasterController = new GameMasterController(new ChessBoard(), true);
-
-for (List<String> move : parser.getMoves()) {
+for (List<String> move : parser.getGameList()) {
     List<ChessMove> chessMoves = ChessMovesParser.parse(move);
-    gameMasterController.setChessMoveList(chessMoves);
-    gameMasterController.Evaluate();
+    controller.setChessMoveList(chessMoves);
+    controller.Evaluate();
 }
 ```
 
-### Parsing PGN Files
+### Multi-Threaded Processing
 
 ```java
-PGNParser parser = new PGNParser();
-parser.parsePGNFile("chess_games.pgn");
-List<List<String>> games = parser.getMoves(); // Get all games as lists of move strings
+// Process multiple files in parallel with 4 worker threads
+List<String> files = List.of(
+    "games1.pgn",
+    "games2.pgn",
+    "games3.pgn",
+    "games4.pgn"
+);
+GameProcessor.processGames(files, 4);
 ```
 
-### Parsing Chess Moves
+## Performance Considerations
 
-```java
-// Parse a single move
-ChessMove move = ChessMovesParser.parseMove("e4", true); // true for white's move
+The parallel processing architecture provides significant performance benefits for:
 
-// Parse a list of moves from a game
-List<String> moveTexts = Arrays.asList("e4", "e5", "Nf3", "Nc6");
-List<ChessMove> moves = ChessMovesParser.parse(moveTexts);
+- **Large PGN Files**: Files containing many games parse much faster
+- **Multiple Files**: Processing multiple files simultaneously uses available CPU cores efficiently
+- **Move Parsing**: Converting algebraic notation to move data parallelizes well
+
+The sequential evaluation stage ensures:
+- **Clear Logging**: No interleaved or corrupted log entries
+- **Accurate Game State**: No race conditions or board corruption
+- **Deterministic Output**: Consistent results between runs
+
+## Requirements
+
+- Java 17 or higher (uses switch expressions)
+- No external dependencies required
+
+## Implementation Details
+
+### The Parsing Pipeline
+
+The parsing process follows these steps:
+
+1. **PGN Reading**: Read files using state machine to handle various formats
+2. **Move Extraction**: Extract individual moves from the game text
+3. **Notation Parsing**: Convert algebraic notation to structured move data
+4. **Move Validation**: Verify each move follows chess rules
+5. **Board Updating**: Execute moves on the chess board
+6. **Logging**: Record process details for debugging and analysis
+
+### Multithreading Strategy
+
+The multithreaded implementation:
+
+1. Creates a thread pool sized to available cores
+2. Assigns one `GameMasterController` per thread
+3. Processes files in parallel
+4. Parses moves in parallel
+5. Evaluates games sequentially for logging clarity
+6. Properly cleans up resources when complete
+
+This approach resembles a modern manufacturing facility with specialized zones - multiple processing lines feeding into a controlled quality inspection area.
+
+## Building and Running
+
+### Prerequisites
+- Java Development Kit (JDK) 17+
+
+### Building
+```bash
+javac -d bin *.java
 ```
+(Optional)
+### Before running 
+delete Games.log and Parser.log  to see cleaner results otherwise new logging entries will be appened onto them.
 
-### Evaluating Games
-
-```java
-ChessBoard board = new ChessBoard();
-GameMasterController controller = new GameMasterController(board, false);
-controller.setChessMoveList(chessMoves);
-controller.Evaluate(); // Validates and executes the moves
-```
 
 ## Testing
 
-The project includes comprehensive unit tests for all components. Run the tests to verify proper functionality:
-
+The project includes comprehensive unit tests for all components:
 - `ChessBoardTest`: Tests board initialization and reset
 - `ChessPieceTest`: Tests piece properties and symbols
 - `ChessMovesParserTest`: Tests parsing of various move notations
 - `GameMasterControllerTest`: Tests move validation and execution
-
