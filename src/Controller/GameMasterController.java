@@ -206,6 +206,21 @@ public class GameMasterController {
             }
         }
 
+        /// check if King's location is safe after move
+        var kingLocation = GetCandidateLocations(move.color, "King");
+        if (kingLocation.isEmpty()) {
+            errorReport.append(move.color).append(" King is not present on the board");
+            moveMade = false;
+        } else if (kingLocation.size() > 2) {
+            errorReport.append("More then one").append(move.color).append(" King is present on the board");
+            moveMade = false;
+        } else {
+            int KingRow = kingLocation.get(0)[0];
+            int KingCol = kingLocation.get(0)[1];
+            moveMade = IsSquareSafeForKing(move.color, KingRow, KingCol);
+        }
+
+
         if (!moveMade) {
             if (errorReport.isEmpty()) {
                 // Set a generic error if no specific error was recorded
