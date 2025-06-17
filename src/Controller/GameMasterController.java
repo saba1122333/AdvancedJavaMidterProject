@@ -1,8 +1,10 @@
 
 package Controller;
+
 import Model.ChessBoard;
 import Model.ChessMove;
 import Model.ChessPiece;
+import Records.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,15 +70,13 @@ public class GameMasterController {
     }
 
     private void MakeMove(ChessMove move) {
-        var candidateLocations = GetCandidateLocations(move.color, move.pieceType);
-        boolean moveMade = false;
-        errorReport = candidateLocations.isEmpty() ? new StringBuilder("No " + move.color + " Candidate " + " found on the board For: " + move.notation) : new StringBuilder();
+        var candidatePositions = GetCandidatePositions(move.color, move.pieceType);
+        errorReport = candidatePositions.isEmpty() ? new StringBuilder("No " + move.color + " Candidate " + " found on the board For: " + move.notation) : new StringBuilder();
 
 
-        for (int[] candidateLocation : candidateLocations) {
-            int fromRow = candidateLocation[0];
-            int fromCol = candidateLocation[1];
-
+        for (Position candidateLocation : candidatePositions) {
+            int fromRow = candidateLocation.row();
+            int fromCol = candidateLocation.col();
 
             if (move.disambiguationFile != null) {
                 if (move.fromCol != fromCol) {
@@ -94,71 +94,30 @@ public class GameMasterController {
                 // add castling logic
                 if (CanPromote(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol)) {
                     // Remove the original pawn
-                    chessBoard.board[fromRow][fromCol] = null;
+                    Util.GameLogger.info("Executing Promotion: " + move.notation);
 
-                    // Create the new promoted piece
-                    String promotionType = move.promotionPiece != null ? move.promotionPiece : "Queen"; // Default to Queen
-                    ChessPiece promotedPiece = new ChessPiece(promotionType, move.color);
-
-                    // Place the new piece on the board
-                    chessBoard.board[move.toRow][move.toCol] = promotedPiece;
-
-                    // Record the move source for history
-                    move.fromRow = fromRow;
-                    move.fromCol = fromCol;
-
-                    System.out.println("Pawn promoted to " + promotionType + " at " +
-                            (char) ('a' + move.toCol) + (8 - move.toRow));
-                    moveMade = true;
+                    ExecutePromotion(move, fromRow, fromCol);
                 }
-
             }
 
             if (move.isCheck) {
                 if (CanCheck(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, move.isPromotion)) {
                     Util.GameLogger.info("Executing Check: " + move.notation);
                     if (!move.isPromotion) {
-
-                        ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
-                        ChessPiece capturedPiece = chessBoard.board[move.toRow][move.toCol];
-
-                        // 2. Temporarily make the move
-                        chessBoard.board[move.toRow][move.toCol] = movingPiece;
-                        chessBoard.board[fromRow][fromCol] = null;
-
+                        ExecuteCheck(move, fromRow, fromCol);
 
                     }
-                    moveMade = true;
                 }
-
 
             }
 
             if (move.isCastling) {
                 if (CanCastle(move)) {
-                    ChessPiece king = chessBoard.board[move.fromRow][move.fromCol];
                     Util.GameLogger.info("Executing castling: " + move.notation);
+                    ExecuteCastling(move);
+                } else {
+                    errorReport.append(move.color).append(" Castling not allowed ");
 
-                    // Calculate rook positions
-                    boolean isKingSideCastling = move.toCol == 6;
-                    int rookFromCol = isKingSideCastling ? 7 : 0;
-                    int rookToCol = isKingSideCastling ? 5 : 3;
-
-                    // Get the rook
-                    ChessPiece rook = chessBoard.board[move.fromRow][rookFromCol];
-
-                    // move king
-                    chessBoard.board[move.toRow][move.toCol] = king;
-                    chessBoard.board[move.fromRow][move.fromCol] = null;
-
-                    king.SetMoved();
-
-                    // move rook
-                    chessBoard.board[move.toRow][rookToCol] = rook;
-                    chessBoard.board[move.fromRow][rookFromCol] = null;
-                    rook.SetMoved();
-
-                    moveMade = true;
                 }
 
             }
@@ -167,23 +126,7 @@ public class GameMasterController {
                 if (CanCapture(move.color, move.pieceType, fromRow, fromCol, move.toRow, move.toCol, false)) {
                     // Execute the capture
                     Util.GameLogger.info("Executing capture: " + move.notation);
-
-                    // Store the piece being moved
-                    ChessPiece capturingPiece = chessBoard.board[fromRow][fromCol];
-
-                    // If first move, mark as moved
-                    if (!capturingPiece.IsMoved()) capturingPiece.SetMoved();
-
-                    // The captured piece is implicitly removed by being overwritten
-                    chessBoard.board[move.toRow][move.toCol] = capturingPiece;
-                    chessBoard.board[fromRow][fromCol] = null;
-
-                    // Record the move source
-                    move.fromRow = fromRow;
-                    move.fromCol = fromCol;
-
-                    moveMade = true;
-                    break;
+                    ExecuteMoveOrCapture(move, fromRow, fromCol);
                 }
             }
             // For non-captures
@@ -191,37 +134,15 @@ public class GameMasterController {
                 // Execute the regular move
                 Util.GameLogger.info("Executing move: " + move.notation);
 
-                ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
-                if (!movingPiece.IsMoved()) movingPiece.SetMoved();
+                ExecuteMoveOrCapture(move, fromRow, fromCol);
 
-                chessBoard.board[move.toRow][move.toCol] = movingPiece;
-                chessBoard.board[fromRow][fromCol] = null;
-
-                // Record the move source
-                move.fromRow = fromRow;
-                move.fromCol = fromCol;
-
-                moveMade = true;
-                break;
             }
         }
 
         /// check if King's location is safe after move
-        var kingLocation = GetCandidateLocations(move.color, "King");
-        if (kingLocation.isEmpty()) {
-            errorReport.append(move.color).append(" King is not present on the board");
-            moveMade = false;
-        } else if (kingLocation.size() > 2) {
-            errorReport.append("More then one").append(move.color).append(" King is present on the board");
-            moveMade = false;
-        } else {
-            int KingRow = kingLocation.get(0)[0];
-            int KingCol = kingLocation.get(0)[1];
-            moveMade = IsSquareSafeForKing(move.color, KingRow, KingCol);
-        }
 
 
-        if (!moveMade) {
+        if (!IsKingSafe(move)) {
             if (errorReport.isEmpty()) {
                 // Set a generic error if no specific error was recorded
                 errorReport.append("Invalid move ").append(move.notation).append(" for ").append(move.color).append(" ").append(move.pieceType).append("\n");
@@ -245,6 +166,82 @@ public class GameMasterController {
 
     }
 
+    private boolean IsKingSafe(ChessMove move) {
+        boolean moveMade;
+        var kingPosition = GetCandidatePositions(move.color, "King");
+        if (kingPosition.isEmpty()) {
+            errorReport.append(move.color).append(" King is not present on the board");
+            moveMade = false;
+        } else if (kingPosition.size() > 2) {
+            errorReport.append("More then one").append(move.color).append(" King is present on the board");
+            moveMade = false;
+        } else {
+            int KingRow = kingPosition.get(0).row();
+            int KingCol = kingPosition.get(0).col();
+            moveMade = IsSquareSafeForKing(move.color, KingRow, KingCol);
+        }
+        return moveMade;
+    }
+
+    private void ExecuteMoveOrCapture(ChessMove move, int fromRow, int fromCol) {
+        // Store the piece being moved
+        ChessPiece capturingPiece = chessBoard.board[fromRow][fromCol];
+
+        // If first move, mark as moved
+        if (!capturingPiece.IsMoved()) capturingPiece.SetMoved();
+
+        // The captured piece is implicitly removed by being overwritten
+        chessBoard.board[move.toRow][move.toCol] = capturingPiece;
+        chessBoard.board[fromRow][fromCol] = null;
+
+        // Record the move source
+        move.fromRow = fromRow;
+        move.fromCol = fromCol;
+    }
+
+    private void ExecuteCastling(ChessMove move) {
+        ChessPiece king = chessBoard.board[move.fromRow][move.fromCol];
+
+        // Calculate rook positions
+        boolean isKingSideCastling = move.toCol == 6;
+        int rookFromCol = isKingSideCastling ? 7 : 0;
+        int rookToCol = isKingSideCastling ? 5 : 3;
+
+        // Get the rook
+        ChessPiece rook = chessBoard.board[move.fromRow][rookFromCol];
+
+        // move king
+        chessBoard.board[move.toRow][move.toCol] = king;
+        chessBoard.board[move.fromRow][move.fromCol] = null;
+
+        king.SetMoved();
+
+        // move rook
+        chessBoard.board[move.toRow][rookToCol] = rook;
+        chessBoard.board[move.fromRow][rookFromCol] = null;
+        rook.SetMoved();
+    }
+
+    private void ExecuteCheck(ChessMove move, int fromRow, int fromCol) {
+        ChessPiece movingPiece = chessBoard.board[fromRow][fromCol];
+        ChessPiece capturedPiece = chessBoard.board[move.toRow][move.toCol];
+
+        // 2. Temporarily make the move
+        chessBoard.board[move.toRow][move.toCol] = movingPiece;
+        chessBoard.board[fromRow][fromCol] = null;
+    }
+
+    private void ExecutePromotion(ChessMove move, int fromRow, int fromCol) {
+        chessBoard.board[fromRow][fromCol] = null;
+
+        // Create the new promoted piece
+        String promotionType = move.promotionPiece != null ? move.promotionPiece : "Queen"; // Default to Queen
+        ChessPiece promotedPiece = new ChessPiece(promotionType, move.color);
+        // Place the new piece on the board
+        chessBoard.board[move.toRow][move.toCol] = promotedPiece;
+
+    }
+
     private boolean CanCheck(String color, String type, int fromRow, int fromCol, int toRow, int toCol, boolean isPromotion) {
         // En-passant is not yet implemented
 
@@ -254,13 +251,13 @@ public class GameMasterController {
 
         // 3. Find the opponent's king
         String opponentColor = color.equals("white") ? "black" : "white";
-        int[] kingsCoordinates = GetCandidateLocations(opponentColor, "King").size() == 1 ? GetCandidateLocations(opponentColor, "King").get(0) : null;
-        if (kingsCoordinates == null) {
+        Position kingsPosition = GetCandidatePositions(opponentColor, "King").size() == 1 ? GetCandidatePositions(opponentColor, "King").get(0) : null;
+        if (kingsPosition == null) {
             // oponents king is not found or more than 2 enemy Kings are present at the board
             return false;
         }
-        int opponentKingRow = kingsCoordinates[0];
-        int opponentKingCol = kingsCoordinates[1];
+        int opponentKingRow = kingsPosition.row();
+        int opponentKingCol = kingsPosition.col();
 
         if (isPromotion) {
             return !IsSquareSafeForKing(opponentColor, opponentKingRow, opponentKingCol);
@@ -288,22 +285,19 @@ public class GameMasterController {
         return true;
     }
 
-    // get candidates coordinates for that move
-    private List<int[]> GetCandidateLocations(String color, String type) {
-        List<int[]> candidateLocations = new ArrayList<>();
+    private List<Position> GetCandidatePositions(String color, String type) {
+        List<Position> candidateLocations = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 ChessPiece candidate = chessBoard.board[row][col];
                 if (candidate != null && candidate.getType().equals(type) && candidate.getColor().equals(color)) {
-                    candidateLocations.add(new int[]{row, col});
+                    candidateLocations.add(new Position(row, col));
                 }
             }
         }
         return candidateLocations;
     }
 
-
-    // then we will check from given position if piece can make that move
 
     private boolean CanMove(String color, String type, int fromRow, int fromCol, int toRow, int toCol) {
         return switch (type) {
